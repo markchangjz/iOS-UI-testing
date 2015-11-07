@@ -11,4 +11,5 @@
 *.gcno
 *.gcda
 xcuserdata
+*.xcuserstate
 .DS_Store

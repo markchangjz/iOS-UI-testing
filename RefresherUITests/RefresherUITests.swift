@@ -9,7 +9,6 @@ class RefresherUITests: XCTestCase {
 
         XCUIApplication().launch()
     
-        // 設定螢幕方向
         // XCUIDevice().orientation = UIDeviceOrientation.LandscapeLeft
     }
     
@@ -19,14 +18,12 @@ class RefresherUITests: XCTestCase {
     
     func addNewItem(item: String) {
         let app = XCUIApplication()
-        // 點選新增按鈕
+        
         app.navigationBars.buttons["Add"].tap()
         
-        // 輸入新增項目的名稱
         let itemTextField = app.textFields.elementBoundByIndex(0)
         itemTextField.typeText(item)
         
-        // 點選 alert 上的 Add 按鈕
         app.alerts.buttons["Add"].tap()
     }
     
@@ -39,7 +36,6 @@ class RefresherUITests: XCTestCase {
     }
     
     func testSelectItem() {
-        
         let app = XCUIApplication()
         
         let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
@@ -52,27 +48,21 @@ class RefresherUITests: XCTestCase {
     }
     
     func testAddNewItem() {
-
         let app = XCUIApplication()
         
-        let addItem = app.tables.staticTexts["Mark"]
+        addNewItem("Taiwan")
         
-        addNewItem("Mark")
+        let addItem = app.tables.staticTexts["Taiwan"]
         
-        // 新增後確認 Mark 項目存在
         XCTAssertTrue(addItem.exists)
     }
     
     func testDeleteItem() {
-        
         let app = XCUIApplication()
         
         let originalNumberOfCell =  app.tables.staticTexts.count
         
-        // 點選 Edit 按鈕, 進入編輯模式
         app.navigationBars.buttons["Edit"].tap()
-        
-        // 刪除指定的項目
         app.tables.buttons.elementBoundByIndex(0).tap()
         app.tables.buttons["Delete"].tap()
         app.navigationBars.buttons["Done"].tap()
@@ -83,8 +73,8 @@ class RefresherUITests: XCTestCase {
     }
     
     func testSearchItem() {
-        
         let app = XCUIApplication()
+        
         app.tables.searchFields["Search"].tap()
         app.tables.searchFields["Search"].typeText("japan")
         
@@ -94,16 +84,14 @@ class RefresherUITests: XCTestCase {
     }
     
     func testPullDownToRefresh() {
-
         let app = XCUIApplication()
         
         addNewItem("A")
-        addNewItem("Z")
+        addNewItem("zzzzz")
         
         pullDownToRefresh()
-        
         let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
-        XCTAssertEqual(firstItem.label, "Z")
+        XCTAssertEqual(firstItem.label, "zzzzz")
         
         pullDownToRefresh()
         XCTAssertEqual(firstItem.label, "A")
