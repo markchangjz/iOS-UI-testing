@@ -57,7 +57,7 @@ class RefresherUITests: XCTestCase {
         XCTAssertTrue(addItem.exists)
     }
     
-    func testDeleteItem() {
+    func testDeleteItemByEditButton() {
         let app = XCUIApplication()
         
         let originalNumberOfCell =  app.tables.staticTexts.count
@@ -69,6 +69,21 @@ class RefresherUITests: XCTestCase {
         
         let currentlyNumberOfCell =  app.tables.staticTexts.count
 
+        XCTAssertEqual(originalNumberOfCell - 1, currentlyNumberOfCell)
+    }
+    
+    func testDeleteItemBySwipeGesture() {
+        let app = XCUIApplication()
+        
+        let originalNumberOfCell =  app.tables.staticTexts.count
+        
+        let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        firstItem.swipeLeft()
+        
+        XCUIApplication().tables.buttons["Delete"].tap()
+        
+        let currentlyNumberOfCell =  app.tables.staticTexts.count
+        
         XCTAssertEqual(originalNumberOfCell - 1, currentlyNumberOfCell)
     }
     
@@ -103,5 +118,24 @@ class RefresherUITests: XCTestCase {
         
         pullDownToRefresh()
         XCTAssertEqual(firstItem.label, "A")
+    }
+    
+    func testReorder() {
+        let app = XCUIApplication()
+        
+        app.navigationBars.buttons["Edit"].tap()
+        let originalItem1Name = app.tables.staticTexts.elementBoundByIndex(0).label
+        let originalItem2Name = app.tables.staticTexts.elementBoundByIndex(1).label
+        
+        let reorderButton1 = app.tables.cells.elementBoundByIndex(0).buttons.elementBoundByIndex(1)
+        let reorderButton2 = app.tables.cells.elementBoundByIndex(1).buttons.elementBoundByIndex(1)
+        reorderButton1.pressForDuration(0.5, thenDragToElement: reorderButton2)
+        app.navigationBars.buttons["Done"].tap()
+        
+        let currentlyItem1Name = app.tables.staticTexts.elementBoundByIndex(0).label
+        let currentlyItem2Name = app.tables.staticTexts.elementBoundByIndex(1).label
+
+        XCTAssertEqual(originalItem1Name, currentlyItem2Name)
+        XCTAssertEqual(originalItem2Name, currentlyItem1Name)
     }
 }
