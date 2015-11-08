@@ -81,6 +81,14 @@ class RefresherUITests: XCTestCase {
         let searchFirstItem = app.tables.staticTexts.elementBoundByIndex(0)
         
         XCTAssertTrue(searchFirstItem.label.lowercaseString.containsString("japan"))
+        
+        let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        let firstItemName = firstItem.label
+        
+        firstItem.tap()
+        let showItemString = app.staticTexts["detailLabel"].label
+        
+        XCTAssertEqual(firstItemName, showItemString)
     }
     
     func testPullDownToRefresh() {
