@@ -63,7 +63,8 @@ class RefresherUITests: XCTestCase {
         let originalNumberOfCell =  app.tables.staticTexts.count
         
         app.navigationBars.buttons["Edit"].tap()
-        app.tables.buttons.elementBoundByIndex(0).tap()
+        let cell = app.tables.cells.elementBoundByIndex(0)
+        cell.buttons.matchingPredicate(NSPredicate(format: "label BEGINSWITH 'Delete'")).element.tap()
         app.tables.buttons["Delete"].tap()
         app.navigationBars.buttons["Done"].tap()
         
@@ -127,8 +128,10 @@ class RefresherUITests: XCTestCase {
         let originalItem1Name = app.tables.staticTexts.elementBoundByIndex(0).label
         let originalItem2Name = app.tables.staticTexts.elementBoundByIndex(1).label
         
-        let reorderButton1 = app.tables.cells.elementBoundByIndex(0).buttons.elementBoundByIndex(1)
-        let reorderButton2 = app.tables.cells.elementBoundByIndex(1).buttons.elementBoundByIndex(1)
+        let cell1 = app.tables.cells.elementBoundByIndex(0)
+        let reorderButton1 = cell1.buttons.matchingPredicate(NSPredicate(format: "label BEGINSWITH 'Reorder'")).element
+        let cell2 = app.tables.cells.elementBoundByIndex(1)
+        let reorderButton2 = cell2.buttons.matchingPredicate(NSPredicate(format: "label BEGINSWITH 'Reorder'")).element
         reorderButton1.pressForDuration(0.5, thenDragToElement: reorderButton2)
         app.navigationBars.buttons["Done"].tap()
         
