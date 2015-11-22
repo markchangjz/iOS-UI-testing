@@ -194,6 +194,9 @@
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 3ADB9DBE16D382220014C7E8;
 					};
+					3ADB9DBE16D382220014C7E8 = {
+						DevelopmentTeam = 4WENRUW4XJ;
+					};
 				};
 			};
 			buildConfigurationList = 3ADB9DBA16D382220014C7E8 /* Build configuration list for PBXProject "Refresher" */;
@@ -397,12 +400,15 @@
 		3ADB9DE316D382230014C7E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grandex.dabapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -411,12 +417,15 @@
 		3ADB9DE416D382230014C7E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grandex.dabapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

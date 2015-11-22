@@ -9,7 +9,7 @@ class RefresherUITests: XCTestCase {
 
         XCUIApplication().launch()
     
-        // XCUIDevice().orientation = UIDeviceOrientation.LandscapeLeft
+//        XCUIDevice().orientation = UIDeviceOrientation.LandscapeLeft
     }
     
     override func tearDown() {
