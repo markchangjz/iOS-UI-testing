@@ -196,7 +196,7 @@
 						TestTargetID = 3ADB9DBE16D382220014C7E8;
 					};
 					3ADB9DBE16D382220014C7E8 = {
-						DevelopmentTeam = 4WENRUW4XJ;
+						DevelopmentTeam = Y53W55T72H;
 					};
 				};
 			};
@@ -291,8 +291,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shea4a71@yahoo.com.tw (8KMZDAVRWB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shea4a71@yahoo.com.tw (8KMZDAVRWB)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -323,8 +323,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shea4a71@yahoo.com.tw (8KMZDAVRWB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shea4a71@yahoo.com.tw (8KMZDAVRWB)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -415,7 +415,7 @@
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.skysoft.Refresher;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -432,7 +432,7 @@
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.skysoft.Refresher;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
