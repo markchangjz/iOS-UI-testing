@@ -250,7 +250,7 @@
             
             self.objects = [self.objects sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:nil ascending:!self.ascending]]];
             
-            NSLog(@"index at %lx", [self.objects indexOfObject:[[alertView textFieldAtIndex:0] text]]);
+            NSLog(@"index at %lu", (unsigned long)[self.objects indexOfObject:[[alertView textFieldAtIndex:0] text]]);
             
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.objects indexOfObject:[[alertView textFieldAtIndex:0] text]] inSection:0];
             [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
