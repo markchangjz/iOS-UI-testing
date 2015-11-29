@@ -195,7 +195,7 @@
 						TestTargetID = 3ADB9DBE16D382220014C7E8;
 					};
 					3ADB9DBE16D382220014C7E8 = {
-						DevelopmentTeam = 4WENRUW4XJ;
+						DevelopmentTeam = Y53W55T72H;
 					};
 				};
 			};
@@ -406,7 +406,7 @@
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.skysoft.iPhone2;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -423,7 +423,7 @@
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.skysoft.iPhone2;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
