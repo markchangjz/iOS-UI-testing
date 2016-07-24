@@ -196,7 +196,7 @@
 						TestTargetID = 3ADB9DBE16D382220014C7E8;
 					};
 					3ADB9DBE16D382220014C7E8 = {
-						DevelopmentTeam = Y53W55T72H;
+						DevelopmentTeam = 7R299M764X;
 					};
 				};
 			};
