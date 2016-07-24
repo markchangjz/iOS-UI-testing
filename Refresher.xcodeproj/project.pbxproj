@@ -35,6 +35,7 @@
 		0D23E5EA1BEB136F004F1FC4 /* RefresherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefresherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D23E5EC1BEB136F004F1FC4 /* RefresherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefresherUITests.swift; sourceTree = "<group>"; };
 		0D23E5EE1BEB136F004F1FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DA63CC01D44669800943651 /* Refresher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Refresher.entitlements; sourceTree = "<group>"; };
 		3ADB9DBF16D382220014C7E8 /* Refresher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Refresher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ADB9DC216D382220014C7E8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3ADB9DC416D382220014C7E8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -117,6 +118,7 @@
 		3ADB9DC816D382220014C7E8 /* Refresher */ = {
 			isa = PBXGroup;
 			children = (
+				0DA63CC01D44669800943651 /* Refresher.entitlements */,
 				3ADB9DD116D382230014C7E8 /* AppDelegate.h */,
 				3ADB9DD216D382230014C7E8 /* AppDelegate.m */,
 				3ADB9DC916D382220014C7E8 /* Supporting Files */,
@@ -197,6 +199,14 @@
 					};
 					3ADB9DBE16D382220014C7E8 = {
 						DevelopmentTeam = 7R299M764X;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -413,13 +423,14 @@
 		3ADB9DE316D382230014C7E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Refresher/Refresher.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -430,13 +441,14 @@
 		3ADB9DE416D382230014C7E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Refresher/Refresher.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Refresher/Refresher-Prefix.pch";
 				INFOPLIST_FILE = "Refresher/Refresher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.Refresher2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
