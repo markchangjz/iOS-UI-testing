@@ -195,6 +195,7 @@
 					0D23E5E91BEB136F004F1FC4 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = Y53W55T72H;
+						LastSwiftMigration = 0800;
 						TestTargetID = 3ADB9DBE16D382220014C7E8;
 					};
 					3ADB9DBE16D382220014C7E8 = {
@@ -320,6 +321,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = Refresher;
 				USES_XCTRUNNER = YES;
 			};
@@ -352,6 +354,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.RefresherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = Refresher;
 				USES_XCTRUNNER = YES;
 			};
