@@ -6,7 +6,7 @@ class RefresherUITests: XCTestCase {
         super.setUp()
         
         continueAfterFailure = false
-
+		setupSnapshot(XCUIApplication())
         XCUIApplication().launch()
     
 //        XCUIDevice().orientation = UIDeviceOrientation.LandscapeLeft
@@ -20,11 +20,12 @@ class RefresherUITests: XCTestCase {
         let app = XCUIApplication()
         
         app.navigationBars.buttons["Add"].tap()
-        
+		snapshot("tap add")
         let itemTextField = app.textFields.element(boundBy: 0)
         itemTextField.typeText(item)
-        
+		snapshot("type")
         app.alerts.buttons["Add"].tap()
+
     }
     
     func pullDownToRefresh() {
@@ -51,7 +52,7 @@ class RefresherUITests: XCTestCase {
         let app = XCUIApplication()
         
         addNewItem("Taiwan")
-        
+        snapshot("add taiwan")
         let addItem = app.tables.staticTexts["Taiwan"]
         
         XCTAssertTrue(addItem.exists)
@@ -63,10 +64,13 @@ class RefresherUITests: XCTestCase {
 		let originalNumberOfCell =  app.tables.staticTexts.count
         
         app.navigationBars.buttons["Edit"].tap()
+		snapshot("tap edit")
         let cell = app.tables.cells.element(boundBy: 0)
         cell.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Delete'")).element.tap()
         app.tables.buttons["Delete"].tap()
+		snapshot("tap del")
         app.navigationBars.buttons["Done"].tap()
+		snapshot("tap done")
         
         let currentlyNumberOfCell =  app.tables.staticTexts.count
 
@@ -80,9 +84,9 @@ class RefresherUITests: XCTestCase {
         
         let firstItem = app.tables.staticTexts.element(boundBy: 0)
         firstItem.swipeLeft()
-        
+        snapshot("swipe")
         XCUIApplication().tables.buttons["Delete"].tap()
-        
+        snapshot("del")
         let currentlyNumberOfCell =  app.tables.staticTexts.count
         
         XCTAssertEqual(Int(originalNumberOfCell) - 1, Int(currentlyNumberOfCell))
@@ -93,7 +97,7 @@ class RefresherUITests: XCTestCase {
         
         app.tables.searchFields["Search"].tap()
         app.tables.searchFields["Search"].typeText("japan")
-        
+        snapshot("search")
         let searchFirstItem = app.tables.staticTexts.element(boundBy: 0)
         
         XCTAssertTrue(searchFirstItem.label.lowercased().contains("japan"))
@@ -111,8 +115,9 @@ class RefresherUITests: XCTestCase {
         let app = XCUIApplication()
         
         addNewItem("A")
+		snapshot("add")
         addNewItem("zzzzz")
-        
+        snapshot("add")
         pullDownToRefresh()
         let firstItem = app.tables.staticTexts.element(boundBy: 0)
         XCTAssertEqual(firstItem.label, "zzzzz")
@@ -125,6 +130,7 @@ class RefresherUITests: XCTestCase {
         let app = XCUIApplication()
         
         app.navigationBars.buttons["Edit"].tap()
+		snapshot("edit")
         let originalItem1Name = app.tables.staticTexts.element(boundBy: 0).label
         let originalItem2Name = app.tables.staticTexts.element(boundBy: 1).label
         

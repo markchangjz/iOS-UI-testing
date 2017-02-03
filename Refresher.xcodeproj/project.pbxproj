@@ -19,6 +19,7 @@
 		3ADB9DD916D382230014C7E8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADB9DD816D382230014C7E8 /* Default-568h@2x.png */; };
 		3ADB9DE716D382A80014C7E8 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB9DE616D382A80014C7E8 /* MasterViewController.m */; };
 		3ADB9DEA16D382CF0014C7E8 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB9DE916D382CF0014C7E8 /* DetailViewController.m */; };
+		79C114471E4435EB00F84857 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C114461E4435EB00F84857 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		3ADB9DE816D382CF0014C7E8 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3ADB9DE916D382CF0014C7E8 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		3AFF9E4716D3C1ED0018EF02 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		79C114461E4435EB00F84857 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		0D23E5EB1BEB136F004F1FC4 /* RefresherUITests */ = {
 			isa = PBXGroup;
 			children = (
+				79C114461E4435EB00F84857 /* SnapshotHelper.swift */,
 				0D23E5EC1BEB136F004F1FC4 /* RefresherUITests.swift */,
 				0D23E5EE1BEB136F004F1FC4 /* Info.plist */,
 			);
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D23E5ED1BEB136F004F1FC4 /* RefresherUITests.swift in Sources */,
+				79C114471E4435EB00F84857 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

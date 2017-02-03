@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='RefresherUITests.xctest' tests='7' failures='1'>
+  <testsuite name='RefresherUITests.RefresherUITests' tests='7' failures='1'>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testAddNewItem' time='15.588'/>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testDeleteItemByEditButton' time='15.387'/>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testDeleteItemBySwipeGesture'>
+      <failure message='UI Testing Failure - No matches found for Table'>RefresherUITests.swift:88</failure>
+    </testcase>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testPullDownToRefresh' time='34.124'/>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testReorder' time='11.732'/>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testSearchItem' time='11.564'/>
+    <testcase classname='RefresherUITests.RefresherUITests' name='testSelectItem' time='7.945'/>
+  </testsuite>
+</testsuites>
