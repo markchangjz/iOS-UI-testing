@@ -16,12 +16,12 @@ class RefresherUITests: XCTestCase {
         super.tearDown()
     }
     
-    func addNewItem(item: String) {
+    func addNewItem(_ item: String) {
         let app = XCUIApplication()
         
         app.navigationBars.buttons["Add"].tap()
         
-        let itemTextField = app.textFields.elementBoundByIndex(0)
+        let itemTextField = app.textFields.element(boundBy: 0)
         itemTextField.typeText(item)
         
         app.alerts.buttons["Add"].tap()
@@ -30,15 +30,15 @@ class RefresherUITests: XCTestCase {
     func pullDownToRefresh() {
         let app = XCUIApplication()
         
-        let dragFromItem = app.tables.staticTexts.elementBoundByIndex(0)
-        let dragToItem = app.tables.staticTexts.elementBoundByIndex(5)
-        dragFromItem.pressForDuration(0.5, thenDragToElement: dragToItem)
+        let dragFromItem = app.tables.staticTexts.element(boundBy: 0)
+        let dragToItem = app.tables.staticTexts.element(boundBy: 5)
+        dragFromItem.press(forDuration: 0.5, thenDragTo: dragToItem)
     }
     
     func testSelectItem() {
         let app = XCUIApplication()
         
-        let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        let firstItem = app.tables.staticTexts.element(boundBy: 0)
         let selectItemString = firstItem.label
         firstItem.tap()
         
@@ -60,17 +60,17 @@ class RefresherUITests: XCTestCase {
     func testDeleteItemByEditButton() {
         let app = XCUIApplication()
         
-        let originalNumberOfCell =  app.tables.staticTexts.count
+		let originalNumberOfCell =  app.tables.staticTexts.count
         
         app.navigationBars.buttons["Edit"].tap()
-        let cell = app.tables.cells.elementBoundByIndex(0)
-        cell.buttons.matchingPredicate(NSPredicate(format: "label BEGINSWITH 'Delete'")).element.tap()
+        let cell = app.tables.cells.element(boundBy: 0)
+        cell.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Delete'")).element.tap()
         app.tables.buttons["Delete"].tap()
         app.navigationBars.buttons["Done"].tap()
         
         let currentlyNumberOfCell =  app.tables.staticTexts.count
 
-        XCTAssertEqual(originalNumberOfCell - 1, currentlyNumberOfCell)
+        XCTAssertEqual(Int(originalNumberOfCell) - 1, Int(currentlyNumberOfCell))
     }
     
     func testDeleteItemBySwipeGesture() {
@@ -78,27 +78,27 @@ class RefresherUITests: XCTestCase {
         
         let originalNumberOfCell =  app.tables.staticTexts.count
         
-        let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        let firstItem = app.tables.staticTexts.element(boundBy: 0)
         firstItem.swipeLeft()
         
         XCUIApplication().tables.buttons["Delete"].tap()
         
         let currentlyNumberOfCell =  app.tables.staticTexts.count
         
-        XCTAssertEqual(originalNumberOfCell - 1, currentlyNumberOfCell)
+        XCTAssertEqual(Int(originalNumberOfCell) - 1, Int(currentlyNumberOfCell))
     }
-    
+	
     func testSearchItem() {
         let app = XCUIApplication()
         
         app.tables.searchFields["Search"].tap()
         app.tables.searchFields["Search"].typeText("japan")
         
-        let searchFirstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        let searchFirstItem = app.tables.staticTexts.element(boundBy: 0)
         
-        XCTAssertTrue(searchFirstItem.label.lowercaseString.containsString("japan"))
+        XCTAssertTrue(searchFirstItem.label.lowercased().contains("japan"))
         
-        let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        let firstItem = app.tables.staticTexts.element(boundBy: 0)
         let firstItemName = firstItem.label
         
         firstItem.tap()
@@ -114,7 +114,7 @@ class RefresherUITests: XCTestCase {
         addNewItem("zzzzz")
         
         pullDownToRefresh()
-        let firstItem = app.tables.staticTexts.elementBoundByIndex(0)
+        let firstItem = app.tables.staticTexts.element(boundBy: 0)
         XCTAssertEqual(firstItem.label, "zzzzz")
         
         pullDownToRefresh()
@@ -125,18 +125,18 @@ class RefresherUITests: XCTestCase {
         let app = XCUIApplication()
         
         app.navigationBars.buttons["Edit"].tap()
-        let originalItem1Name = app.tables.staticTexts.elementBoundByIndex(0).label
-        let originalItem2Name = app.tables.staticTexts.elementBoundByIndex(1).label
+        let originalItem1Name = app.tables.staticTexts.element(boundBy: 0).label
+        let originalItem2Name = app.tables.staticTexts.element(boundBy: 1).label
         
-        let cell1 = app.tables.cells.elementBoundByIndex(0)
-        let reorderButton1 = cell1.buttons.matchingPredicate(NSPredicate(format: "label BEGINSWITH 'Reorder'")).element
-        let cell2 = app.tables.cells.elementBoundByIndex(1)
-        let reorderButton2 = cell2.buttons.matchingPredicate(NSPredicate(format: "label BEGINSWITH 'Reorder'")).element
-        reorderButton1.pressForDuration(0.5, thenDragToElement: reorderButton2)
+        let cell1 = app.tables.cells.element(boundBy: 0)
+        let reorderButton1 = cell1.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Reorder'")).element
+        let cell2 = app.tables.cells.element(boundBy: 1)
+        let reorderButton2 = cell2.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Reorder'")).element
+        reorderButton1.press(forDuration: 0.5, thenDragTo: reorderButton2)
         app.navigationBars.buttons["Done"].tap()
         
-        let currentlyItem1Name = app.tables.staticTexts.elementBoundByIndex(0).label
-        let currentlyItem2Name = app.tables.staticTexts.elementBoundByIndex(1).label
+        let currentlyItem1Name = app.tables.staticTexts.element(boundBy: 0).label
+        let currentlyItem2Name = app.tables.staticTexts.element(boundBy: 1).label
 
         XCTAssertEqual(originalItem1Name, currentlyItem2Name)
         XCTAssertEqual(originalItem2Name, currentlyItem1Name)
