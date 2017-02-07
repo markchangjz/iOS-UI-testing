@@ -38,6 +38,17 @@
                BlueprintName = "RefresherUITests"
                ReferencedContainer = "container:Refresher.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "RefresherUITests/testDeleteItemByEditButton()">
+               </Test>
+               <Test
+                  Identifier = "RefresherUITests/testDeleteItemBySwipeGesture()">
+               </Test>
+               <Test
+                  Identifier = "RefresherUITests/testSearchItem()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -40,6 +40,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "RefresherUITests/testDeleteItemByEditButton()">
+               </Test>
+               <Test
                   Identifier = "RefresherUITests/testDeleteItemBySwipeGesture()">
                </Test>
                <Test
@@ -50,6 +53,9 @@
                </Test>
                <Test
                   Identifier = "RefresherUITests/testSearchItem()">
+               </Test>
+               <Test
+                  Identifier = "RefresherUITests/testSelectItem()">
                </Test>
             </SkippedTests>
          </TestableReference>
