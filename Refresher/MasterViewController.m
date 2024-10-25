@@ -1,9 +1,10 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-@interface MasterViewController () <UIAlertViewDelegate, UISearchDisplayDelegate> {
+@interface MasterViewController () <UISearchResultsUpdating, UISearchBarDelegate>
+{
     UISearchBar *searchBar;
-    UISearchDisplayController *searchDisplayController;
+    UISearchController *searchController;
 }
 
 @property (strong, nonatomic) NSArray *objects, *filteredArray;
@@ -30,10 +31,13 @@
     [searchBar sizeToFit];
     self.tableView.tableHeaderView = searchBar;
     
-    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-    searchDisplayController.delegate = self;
-    searchDisplayController.searchResultsDataSource = self;
-    searchDisplayController.searchResultsDelegate = self;
+    searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    searchController.searchResultsUpdater = self;
+    searchController.obscuresBackgroundDuringPresentation = NO;
+    searchBar.delegate = self;
+    
+    self.definesPresentationContext = YES;
+    self.tableView.tableHeaderView = searchController.searchBar;
 }
 
 - (void)setBarButtonItems
@@ -41,7 +45,7 @@
     UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
     [addBtn setAccessibilityIdentifier:@"Add"];
     
-    UIBarButtonItem *editBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(enterEditMode)];
+    UIBarButtonItem *editBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(enterEditMode)];
     [editBtn setAccessibilityIdentifier:@"Edit"];
     
     UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(leaveEditMode)];
@@ -65,15 +69,44 @@
 
 - (void)addItem
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Item"
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Add", nil];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Item"
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Item Name";
+    }];
     
-    [alertView show];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = alertController.textFields.firstObject;
+        [self addNewItemWithName:textField.text];
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:addAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)addNewItemWithName:(NSString *)itemName
+{
+    if (itemName.length > 0) {
+        NSMutableArray *mObjects = [self.objects mutableCopy];
+        [mObjects addObject:itemName];
+        self.objects = [mObjects copy];
+        
+        self.objects = [self.objects sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:nil ascending:!self.ascending]]];
+        
+        NSLog(@"index at %lu", (unsigned long)[self.objects indexOfObject:itemName]);
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.objects indexOfObject:itemName] inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self storeCell];
+        
+        [self performSelector:@selector(tableViewReloadData:) withObject:self.tableView afterDelay:1.0];
+    }
 }
 
 - (void)changeSorting
@@ -130,18 +163,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSUInteger rows = 0;
-    
-    if (tableView == self.tableView) {
-        rows = self.objects.count;
+    if (searchController.isActive && searchController.searchBar.text.length > 0) {
+        return self.filteredArray.count;
     }
-    else if (tableView == self.searchDisplayController.searchResultsTableView) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchBar.text];
-        self.filteredArray = [self.objects filteredArrayUsingPredicate:predicate];
-        rows = self.filteredArray.count;
-    }
-    
-    return rows;
+    return self.objects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -153,11 +178,10 @@
     cell.textLabel.highlightedTextColor = [UIColor redColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    if (tableView == self.tableView) {
+    if (searchController.isActive && searchController.searchBar.text.length > 0) {
+        cell.textLabel.text = [self.filteredArray objectAtIndex:indexPath.row];
+    } else {
         cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
-    }
-    else if (tableView == self.searchDisplayController.searchResultsTableView) {
-        cell.textLabel.text = [self.filteredArray objectAtIndex:[indexPath row]];
     }
     
     return cell;
@@ -166,28 +190,23 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSMutableArray *mObjects = [self.objects mutableCopy];
         
-        if (tableView == self.tableView) {
-            NSMutableArray *mObjects = [self.objects mutableCopy];
-            [mObjects removeObjectAtIndex:indexPath.row];
-            self.objects = [mObjects copy];
-        }
-        else if (tableView == self.searchDisplayController.searchResultsTableView) {
-            NSMutableArray *mObjects = [self.objects mutableCopy];
+        if (searchController.isActive && searchController.searchBar.text.length > 0) {
+            NSString *itemToRemove = self.filteredArray[indexPath.row];
+            [mObjects removeObject:itemToRemove];
+            
             NSMutableArray *mFilteredArray = [self.filteredArray mutableCopy];
-            
-            [mObjects removeObject:[mFilteredArray objectAtIndex:indexPath.row]];
             [mFilteredArray removeObjectAtIndex:indexPath.row];
-            
-            self.objects = [mObjects copy];
             self.filteredArray = [mFilteredArray copy];
-            
-            [self.tableView reloadData];
+        } else {
+            [mObjects removeObjectAtIndex:indexPath.row];
         }
         
+        self.objects = [mObjects copy];
         [self storeCell];
         
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
         
         [self performSelector:@selector(tableViewReloadData:) withObject:tableView afterDelay:1.0];
     }
@@ -216,11 +235,10 @@
 {
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
     
-    if (tableView == self.tableView) {
-        detailViewController.detailItem = [self.objects objectAtIndex:indexPath.row];
-    }
-    else if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (searchController.isActive && searchController.searchBar.text.length > 0) {
         detailViewController.detailItem = [self.filteredArray objectAtIndex:indexPath.row];
+    } else {
+        detailViewController.detailItem = [self.objects objectAtIndex:indexPath.row];
     }
     
     [self.navigationController pushViewController:detailViewController animated:YES];
@@ -236,43 +254,17 @@
     [sender reloadData];
 }
 
-#pragma mark - UIAlertViewDelegate
+#pragma mark - UISearchResultsUpdating
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 1:
-            NSLog(@"Add %@", [[alertView textFieldAtIndex:0] text]);
-            
-            NSMutableArray *mObjects = [self.objects mutableCopy];
-            [mObjects addObject:[[alertView textFieldAtIndex:0] text]];
-            self.objects = [mObjects copy];
-            
-            self.objects = [self.objects sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:nil ascending:!self.ascending]]];
-            
-            NSLog(@"index at %lu", (unsigned long)[self.objects indexOfObject:[[alertView textFieldAtIndex:0] text]]);
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.objects indexOfObject:[[alertView textFieldAtIndex:0] text]] inSection:0];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            [self storeCell];
-            
-            [self performSelector:@selector(tableViewReloadData:) withObject:self.tableView afterDelay:1.0];
-            
-            break;
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchText = searchController.searchBar.text;
+    if (searchText.length > 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+        self.filteredArray = [self.objects filteredArrayUsingPredicate:predicate];
+    } else {
+        self.filteredArray = [self.objects copy];
     }
-}
-
-- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
-{
-    NSString *inputText = [[alertView textFieldAtIndex:0] text];
-    
-    if(inputText.length > 0) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
+    [self.tableView reloadData];
 }
 
 @end
