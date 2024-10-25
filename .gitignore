@@ -21,5 +21,6 @@ Build/
 # Xcode noise
 UserInterfaceState.xcuserstate
 Breakpoints.xcbkptlist
+IDEWorkspaceChecks.plist
 xcuserdata
 *.xccheckout
