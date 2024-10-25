@@ -50,9 +50,9 @@ class RefresherUITests: XCTestCase {
     func testAddNewItem() {
         let app = XCUIApplication()
         
-        addNewItem("Taiwan")
+        addNewItem("Taipei")
         
-        let addItem = app.tables.staticTexts["Taiwan"]
+        let addItem = app.tables.staticTexts["Taipei"]
         
         XCTAssertTrue(addItem.exists)
     }
@@ -64,7 +64,7 @@ class RefresherUITests: XCTestCase {
         
         app.navigationBars.buttons["Edit"].tap()
         let cell = app.tables.cells.element(boundBy: 0)
-        cell.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Delete'")).element.tap()
+        cell.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Remove'")).element.tap()
         app.tables.buttons["Delete"].tap()
         app.navigationBars.buttons["Done"].tap()
         
@@ -91,8 +91,9 @@ class RefresherUITests: XCTestCase {
     func testSearchItem() {
         let app = XCUIApplication()
         
-        app.tables.searchFields["Search"].tap()
-        app.tables.searchFields["Search"].typeText("japan")
+        let searchField = app.searchFields["Search"]
+        searchField.tap()
+        searchField.typeText("japan")
         
         let searchFirstItem = app.tables.staticTexts.element(boundBy: 0)
         

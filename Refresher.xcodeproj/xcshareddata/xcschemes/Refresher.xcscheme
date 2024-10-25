@@ -28,6 +28,15 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3ADB9DBE16D382220014C7E8"
+            BuildableName = "Refresher.app"
+            BlueprintName = "Refresher"
+            ReferencedContainer = "container:Refresher.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -38,30 +47,8 @@
                BlueprintName = "RefresherUITests"
                ReferencedContainer = "container:Refresher.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "RefresherUITests/testDeleteItemByEditButton()">
-               </Test>
-               <Test
-                  Identifier = "RefresherUITests/testDeleteItemBySwipeGesture()">
-               </Test>
-               <Test
-                  Identifier = "RefresherUITests/testSearchItem()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3ADB9DBE16D382220014C7E8"
-            BuildableName = "Refresher.app"
-            BlueprintName = "Refresher"
-            ReferencedContainer = "container:Refresher.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -83,8 +70,6 @@
             ReferencedContainer = "container:Refresher.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
