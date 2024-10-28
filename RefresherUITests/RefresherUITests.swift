@@ -111,15 +111,15 @@ class RefresherUITests: XCTestCase {
     func testPullDownToRefresh() {
         let app = XCUIApplication()
         
-        addNewItem("A")
-        addNewItem("zzzzz")
+        addNewItem("Amsterdam")
+        addNewItem("Zurich")
         
         pullDownToRefresh()
         let firstItem = app.tables.staticTexts.element(boundBy: 0)
-        XCTAssertEqual(firstItem.label, "zzzzz")
+        XCTAssertEqual(firstItem.label, "Zurich")
         
         pullDownToRefresh()
-        XCTAssertEqual(firstItem.label, "A")
+        XCTAssertEqual(firstItem.label, "Amsterdam")
     }
     
     func testReorder() {
