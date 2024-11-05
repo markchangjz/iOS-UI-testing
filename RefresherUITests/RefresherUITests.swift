@@ -60,7 +60,7 @@ class RefresherUITests: XCTestCase {
     func testDeleteItemByEditButton() {
         let app = XCUIApplication()
         
-		let originalNumberOfCell =  app.tables.staticTexts.count
+		let originalNumberOfCell = app.tables.cells.count
         
         app.navigationBars.buttons["Edit"].tap()
         let cell = app.tables.cells.element(boundBy: 0)
@@ -68,7 +68,7 @@ class RefresherUITests: XCTestCase {
         app.tables.buttons["Delete"].tap()
         app.navigationBars.buttons["Done"].tap()
         
-        let currentlyNumberOfCell =  app.tables.staticTexts.count
+        let currentlyNumberOfCell = app.tables.cells.count
 
         XCTAssertEqual(Int(originalNumberOfCell) - 1, Int(currentlyNumberOfCell))
     }
@@ -76,14 +76,14 @@ class RefresherUITests: XCTestCase {
     func testDeleteItemBySwipeGesture() {
         let app = XCUIApplication()
         
-        let originalNumberOfCell =  app.tables.staticTexts.count
+        let originalNumberOfCell = app.tables.cells.count
         
         let firstItem = app.tables.staticTexts.element(boundBy: 0)
         firstItem.swipeLeft()
         
         XCUIApplication().tables.buttons["Delete"].tap()
         
-        let currentlyNumberOfCell =  app.tables.staticTexts.count
+        let currentlyNumberOfCell = app.tables.cells.count
         
         XCTAssertEqual(Int(originalNumberOfCell) - 1, Int(currentlyNumberOfCell))
     }
